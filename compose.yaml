@@ -10,3 +10,22 @@ services:
     network_mode: host
     volumes:
       - ./data:/app/data
+    command: ["python", "backend.py"]
+
+  mlx90614-dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlx90614-dashboard
+    restart: unless-stopped
+    env_file:
+      - .env
+    network_mode: host
+    volumes:
+      - ./data:/app/data
+    command:
+      - streamlit
+      - run
+      - dashboard.py
+      - --server.address=${DASHBOARD_HOST:-127.0.0.1}
+      - --server.port=${DASHBOARD_PORT:-8501}
