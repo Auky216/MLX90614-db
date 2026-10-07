@@ -1,6 +1,7 @@
 .git
 .github
 .env
+.env.chatbot
 .venv
 __pycache__
 *.pyc

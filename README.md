@@ -137,6 +137,24 @@ ssh -L 8000:127.0.0.1:8000 programador@13.140.187.142
 
 Luego abre [http://localhost:8000/docs](http://localhost:8000/docs).
 
+## Chatbot local con DeepSeek
+
+El chatbot se ejecuta únicamente en tu Mac. Guarda la clave de DeepSeek y el historial local en archivos ignorados por Git:
+
+```bash
+cp .env.chatbot.example .env.chatbot
+nano .env.chatbot
+```
+
+Configura `DEEPSEEK_API_KEY` y la URL pública o mediante túnel SSH de la API de temperatura. Después, en tu entorno virtual local:
+
+```bash
+pip install -r requirements.txt
+streamlit run chatbot.py --server.address 127.0.0.1 --server.port 8502
+```
+
+Abre [http://localhost:8502](http://localhost:8502). Las conversaciones se guardan localmente en `data/chatbot.db`; el chatbot solo realiza peticiones GET a los endpoints permitidos de temperatura y no consulta SQLite del servidor de forma directa.
+
 ## Acceso seguro al dashboard
 
 Desde tu Mac, crea un túnel SSH hacia el puerto local del servidor:
