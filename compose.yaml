@@ -1,0 +1,12 @@
+services:
+  mlx90614-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlx90614-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    network_mode: host
+    volumes:
+      - ./data:/app/data
