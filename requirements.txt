@@ -3,3 +3,6 @@ python-dotenv
 streamlit>=1.37
 pandas
 plotly
+fastapi
+uvicorn
+pytest

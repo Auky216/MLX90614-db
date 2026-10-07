@@ -20,6 +20,11 @@ Mosquitto del host Linux :1883
                 |
                 v
             Dashboard Streamlit
+        |
+        +--> Contenedor mlx90614-api
+                |
+                v
+            API FastAPI de solo lectura
 ```
 
 Mosquitto no forma parte de Docker Compose. Debe ejecutarse como servicio del host Linux. El backend es el único proceso que escribe SQLite: el dashboard se suscribe a MQTT para las lecturas instantáneas y solo lee el histórico agregado.
@@ -81,6 +86,56 @@ Logs del dashboard:
 ```bash
 docker compose logs -f mlx90614-dashboard
 ```
+
+## API
+
+La API consulta SQLite en modo solo lectura. No acepta SQL arbitrario y usa cálculos ponderados por `samples` para los promedios. Las fechas sin zona horaria se interpretan con `LOCAL_TIMEZONE`, que en la configuración de ejemplo es `America/Lima`.
+
+Levantar todos los servicios:
+
+```bash
+docker compose up -d --build
+```
+
+Logs de la API:
+
+```bash
+docker compose logs -f mlx90614-api
+```
+
+Health:
+
+```bash
+curl http://127.0.0.1:8000/health
+```
+
+Último minuto disponible:
+
+```bash
+curl http://127.0.0.1:8000/temperature/latest
+```
+
+Estadísticas ponderadas de un rango local:
+
+```bash
+curl "http://127.0.0.1:8000/temperature/stats?start=2026-10-07T01:00:00&end=2026-10-07T01:10:00"
+```
+
+Resumen de un día local:
+
+```bash
+curl "http://127.0.0.1:8000/temperature/daily-summary?date=2026-10-07"
+```
+
+Swagger está disponible en [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
+
+Para acceder temporalmente desde tu Mac sin exponer la API públicamente:
+
+```bash
+ssh -L 8000:127.0.0.1:8000 programador@13.140.187.142
+```
+
+Luego abre [http://localhost:8000/docs](http://localhost:8000/docs).
 
 ## Acceso seguro al dashboard
 

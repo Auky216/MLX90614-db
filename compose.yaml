@@ -29,3 +29,20 @@ services:
       - dashboard.py
       - --server.address=${DASHBOARD_HOST:-127.0.0.1}
       - --server.port=${DASHBOARD_PORT:-8501}
+
+  mlx90614-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlx90614-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    network_mode: host
+    volumes:
+      - ./data:/app/data
+    command:
+      - uvicorn
+      - api:app
+      - --host=${API_HOST:-127.0.0.1}
+      - --port=${API_PORT:-8000}
