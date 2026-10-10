@@ -31,6 +31,20 @@ class MobileReading:
     sequence: int | None
 
 
+@dataclass(frozen=True)
+class MobileMinute:
+    """Resumen completo de un minuto calculado en el iPhone."""
+
+    minute_utc: str
+    samples: int
+    ambient_min: float
+    ambient_max: float
+    ambient_avg: float
+    object_min: float
+    object_max: float
+    object_avg: float
+
+
 def load_mobile_sync_token() -> str:
     load_dotenv()
     token = os.getenv("MOBILE_SYNC_TOKEN", "").strip()
@@ -91,6 +105,44 @@ class MobileIngestionService:
                 raise MobileIngestionUnavailableError from error
             raise MobileIngestionError("No se pudo guardar el lote móvil") from error
 
+    def store_minute_batch(self, device_id: str, minutes: Iterable[MobileMinute]) -> list[str]:
+        """Guarda resúmenes por minuto de forma idempotente y sin tocar MQTT."""
+        records = list(minutes)
+        if not records:
+            return []
+        self.database_path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            with self._connect() as connection:
+                self._create_minute_table(connection)
+                connection.executemany(
+                    """
+                    INSERT OR IGNORE INTO mobile_temperature_minutes
+                    (device_id, minute_utc, samples, ambient_min, ambient_max, ambient_avg,
+                     object_min, object_max, object_avg, received_at_utc)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    [
+                        (
+                            device_id,
+                            minute.minute_utc,
+                            minute.samples,
+                            minute.ambient_min,
+                            minute.ambient_max,
+                            minute.ambient_avg,
+                            minute.object_min,
+                            minute.object_max,
+                            minute.object_avg,
+                            datetime.now(timezone.utc).isoformat(),
+                        )
+                        for minute in records
+                    ],
+                )
+            return [minute.minute_utc for minute in records]
+        except sqlite3.OperationalError as error:
+            if "locked" in str(error).lower() or "busy" in str(error).lower():
+                raise MobileIngestionUnavailableError from error
+            raise MobileIngestionError("No se pudo guardar el resumen móvil") from error
+
     def _connect(self) -> sqlite3.Connection:
         connection = sqlite3.connect(self.database_path, timeout=10)
         connection.execute("PRAGMA busy_timeout = 10000")
@@ -114,4 +166,29 @@ class MobileIngestionService:
         connection.execute(
             "CREATE INDEX IF NOT EXISTS mobile_temperature_readings_captured_idx "
             "ON mobile_temperature_readings(captured_at_utc DESC)"
+        )
+
+    @staticmethod
+    def _create_minute_table(connection: sqlite3.Connection) -> None:
+        connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS mobile_temperature_minutes (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                device_id TEXT NOT NULL,
+                minute_utc TEXT NOT NULL,
+                samples INTEGER NOT NULL,
+                ambient_min REAL NOT NULL,
+                ambient_max REAL NOT NULL,
+                ambient_avg REAL NOT NULL,
+                object_min REAL NOT NULL,
+                object_max REAL NOT NULL,
+                object_avg REAL NOT NULL,
+                received_at_utc TEXT NOT NULL,
+                UNIQUE(device_id, minute_utc)
+            )
+            """
+        )
+        connection.execute(
+            "CREATE INDEX IF NOT EXISTS mobile_temperature_minutes_minute_idx "
+            "ON mobile_temperature_minutes(minute_utc DESC)"
         )

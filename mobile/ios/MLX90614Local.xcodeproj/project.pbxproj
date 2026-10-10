@@ -8,28 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		38F8A32C8A6DAE17668E9440 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 70B6B1782A3691BC46AFD120 /* PrivacyInfo.xcprivacy */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		9FE4C83515FE31B9D3F250D5 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BEC2743F35F61AB3B818ED /* ExpoModulesProvider.swift */; };
-		AC728CBAF86ACE53F77BAFDB /* libPods-MLX90614Local.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F686B984E6C18F9D69B2BDBD /* libPods-MLX90614Local.a */; };
+		4F04BDAA9F29463D83D1EAD0 /* libPods-MLX90614Local.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F77A176D4E091862A1C40DD0 /* libPods-MLX90614Local.a */; };
+		B4C45832E3FB5501D4B5AE16 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 609AEDA41EA525B43CC093A6 /* PrivacyInfo.xcprivacy */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
+		F852C89EA8C039FB784641AB /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F76EFF1A35B12BC43B1D6A26 /* ExpoModulesProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		00D3BE02E246805652BF74B1 /* Pods-MLX90614Local.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLX90614Local.release.xcconfig"; path = "Target Support Files/Pods-MLX90614Local/Pods-MLX90614Local.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MLX90614Local.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLX90614Local.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MLX90614Local/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MLX90614Local/Info.plist; sourceTree = "<group>"; };
-		41BEC2743F35F61AB3B818ED /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-MLX90614Local/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		70B6B1782A3691BC46AFD120 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = MLX90614Local/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		609AEDA41EA525B43CC093A6 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = MLX90614Local/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A6E9896EC2F4123E14550DFB /* Pods-MLX90614Local.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLX90614Local.debug.xcconfig"; path = "Target Support Files/Pods-MLX90614Local/Pods-MLX90614Local.debug.xcconfig"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = MLX90614Local/SplashScreen.storyboard; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
+		C27AFC38E1C8C7B48D8B5507 /* Pods-MLX90614Local.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLX90614Local.release.xcconfig"; path = "Target Support Files/Pods-MLX90614Local/Pods-MLX90614Local.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MLX90614Local/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* MLX90614Local-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MLX90614Local-Bridging-Header.h"; path = "MLX90614Local/MLX90614Local-Bridging-Header.h"; sourceTree = "<group>"; };
-		F686B984E6C18F9D69B2BDBD /* libPods-MLX90614Local.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MLX90614Local.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F7DEB1ACC36660FBCD064D49 /* Pods-MLX90614Local.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MLX90614Local.debug.xcconfig"; path = "Target Support Files/Pods-MLX90614Local/Pods-MLX90614Local.debug.xcconfig"; sourceTree = "<group>"; };
+		F76EFF1A35B12BC43B1D6A26 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-MLX90614Local/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		F77A176D4E091862A1C40DD0 /* libPods-MLX90614Local.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MLX90614Local.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,13 +37,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC728CBAF86ACE53F77BAFDB /* libPods-MLX90614Local.a in Frameworks */,
+				4F04BDAA9F29463D83D1EAD0 /* libPods-MLX90614Local.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C4D03323E516055AB590617 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				C27138D0F36681712DEB3E19 /* MLX90614Local */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* MLX90614Local */ = {
 			isa = PBXGroup;
 			children = (
@@ -53,7 +61,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				70B6B1782A3691BC46AFD120 /* PrivacyInfo.xcprivacy */,
+				609AEDA41EA525B43CC093A6 /* PrivacyInfo.xcprivacy */,
 			);
 			name = MLX90614Local;
 			sourceTree = "<group>";
@@ -62,24 +70,16 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				F686B984E6C18F9D69B2BDBD /* libPods-MLX90614Local.a */,
+				F77A176D4E091862A1C40DD0 /* libPods-MLX90614Local.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		42B468271E31376F4F76AB42 /* MLX90614Local */ = {
+		47C92DE0356F2E5EA5FB92A9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				41BEC2743F35F61AB3B818ED /* ExpoModulesProvider.swift */,
-			);
-			name = MLX90614Local;
-			sourceTree = "<group>";
-		};
-		4C5FC6834B6588A66FD62C37 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F7DEB1ACC36660FBCD064D49 /* Pods-MLX90614Local.debug.xcconfig */,
-				00D3BE02E246805652BF74B1 /* Pods-MLX90614Local.release.xcconfig */,
+				A6E9896EC2F4123E14550DFB /* Pods-MLX90614Local.debug.xcconfig */,
+				C27AFC38E1C8C7B48D8B5507 /* Pods-MLX90614Local.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -99,8 +99,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				4C5FC6834B6588A66FD62C37 /* Pods */,
-				9EC667CED2C07A1BAFF75DDD /* ExpoModulesProviders */,
+				47C92DE0356F2E5EA5FB92A9 /* Pods */,
+				0C4D03323E516055AB590617 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -115,14 +115,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9EC667CED2C07A1BAFF75DDD /* ExpoModulesProviders */ = {
-			isa = PBXGroup;
-			children = (
-				42B468271E31376F4F76AB42 /* MLX90614Local */,
-			);
-			name = ExpoModulesProviders;
-			sourceTree = "<group>";
-		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +122,14 @@
 			);
 			name = Supporting;
 			path = MLX90614Local/Supporting;
+			sourceTree = "<group>";
+		};
+		C27138D0F36681712DEB3E19 /* MLX90614Local */ = {
+			isa = PBXGroup;
+			children = (
+				F76EFF1A35B12BC43B1D6A26 /* ExpoModulesProvider.swift */,
+			);
+			name = MLX90614Local;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,14 +140,14 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MLX90614Local" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				5A1D1DC3F2A65118FDD1A74E /* [Expo] Configure project */,
+				D6F53464DE090C038486E517 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				DFEF05724A794E78A2EF06A2 /* [Expo Dev Launcher] Strip Local Network Keys for Release */,
-				EA2357371EA6E9902FF687B4 /* [CP] Embed Pods Frameworks */,
+				526756088D0742638FC05D6B /* [Expo Dev Launcher] Strip Local Network Keys for Release */,
+				8E19AB00C4C9C98E2EC2BC0E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -199,7 +199,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				38F8A32C8A6DAE17668E9440 /* PrivacyInfo.xcprivacy in Resources */,
+				B4C45832E3FB5501D4B5AE16 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,29 +245,19 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5A1D1DC3F2A65118FDD1A74E /* [Expo] Configure project */ = {
+		526756088D0742638FC05D6B /* [Expo Dev Launcher] Strip Local Network Keys for Release */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
-				"$(SRCROOT)/.xcode.env",
-				"$(SRCROOT)/.xcode.env.local",
-				"$(SRCROOT)/MLX90614Local/MLX90614Local.entitlements",
-				"$(SRCROOT)/Pods/Target Support Files/Pods-MLX90614Local/expo-configure-project.sh",
 			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
+			name = "[Expo Dev Launcher] Strip Local Network Keys for Release";
 			outputPaths = (
-				"$(SRCROOT)/Pods/Target Support Files/Pods-MLX90614Local/ExpoModulesProvider.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-MLX90614Local/expo-configure-project.sh\"\n";
+			shellScript = "# Strip dev-launcher-specific local network permission keys from non-Debug builds\n# This only removes _expo._tcp Bonjour services and the dev-launcher usage description.\n# Other Bonjour services and custom descriptions are preserved for production use.\n\nif [ \"$CONFIGURATION\" != \"Debug\" ]; then\n  PLIST_PATH=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n  if [ -f \"$PLIST_PATH\" ]; then\n    # Check if NSBonjourServices exists\n    if /usr/libexec/PlistBuddy -c \"Print :NSBonjourServices\" \"$PLIST_PATH\" >/dev/null 2>&1; then\n      # Get the count of services\n      COUNT=$(/usr/libexec/PlistBuddy -c \"Print :NSBonjourServices\" \"$PLIST_PATH\" 2>/dev/null | grep \"^    \" | wc -l | tr -d ' ')\n\n      # Remove _expo._tcp\n      for ((i=COUNT-1; i>=0; i--)); do\n        SERVICE=$(/usr/libexec/PlistBuddy -c \"Print :NSBonjourServices:$i\" \"$PLIST_PATH\" 2>/dev/null || echo \"\")\n        if echo \"$SERVICE\" | grep -q \"_expo._tcp\"; then\n          /usr/libexec/PlistBuddy -c \"Delete :NSBonjourServices:$i\" \"$PLIST_PATH\" 2>/dev/null || true\n        fi\n      done\n\n      # If the array is now empty, remove it entirely\n      REMAINING=$(/usr/libexec/PlistBuddy -c \"Print :NSBonjourServices\" \"$PLIST_PATH\" 2>/dev/null | grep \"^    \" | wc -l | tr -d ' ')\n      if [ \"$REMAINING\" -eq \"0\" ]; then\n        /usr/libexec/PlistBuddy -c \"Delete :NSBonjourServices\" \"$PLIST_PATH\" 2>/dev/null || true\n      fi\n    fi\n\n    # Only delete the description if it matches the dev-launcher default text\n    DESC=$(/usr/libexec/PlistBuddy -c \"Print :NSLocalNetworkUsageDescription\" \"$PLIST_PATH\" 2>/dev/null || echo \"\")\n    if echo \"$DESC\" | grep -q \"Expo Dev Launcher\"; then\n      /usr/libexec/PlistBuddy -c \"Delete :NSLocalNetworkUsageDescription\" \"$PLIST_PATH\" 2>/dev/null || true\n    fi\n  fi\nfi\n";
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -305,21 +295,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MLX90614Local/Pods-MLX90614Local-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DFEF05724A794E78A2EF06A2 /* [Expo Dev Launcher] Strip Local Network Keys for Release */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[Expo Dev Launcher] Strip Local Network Keys for Release";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Strip dev-launcher-specific local network permission keys from non-Debug builds\n# This only removes _expo._tcp Bonjour services and the dev-launcher usage description.\n# Other Bonjour services and custom descriptions are preserved for production use.\n\nif [ \"$CONFIGURATION\" != \"Debug\" ]; then\n  PLIST_PATH=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n  if [ -f \"$PLIST_PATH\" ]; then\n    # Check if NSBonjourServices exists\n    if /usr/libexec/PlistBuddy -c \"Print :NSBonjourServices\" \"$PLIST_PATH\" >/dev/null 2>&1; then\n      # Get the count of services\n      COUNT=$(/usr/libexec/PlistBuddy -c \"Print :NSBonjourServices\" \"$PLIST_PATH\" 2>/dev/null | grep \"^    \" | wc -l | tr -d ' ')\n\n      # Remove _expo._tcp\n      for ((i=COUNT-1; i>=0; i--)); do\n        SERVICE=$(/usr/libexec/PlistBuddy -c \"Print :NSBonjourServices:$i\" \"$PLIST_PATH\" 2>/dev/null || echo \"\")\n        if echo \"$SERVICE\" | grep -q \"_expo._tcp\"; then\n          /usr/libexec/PlistBuddy -c \"Delete :NSBonjourServices:$i\" \"$PLIST_PATH\" 2>/dev/null || true\n        fi\n      done\n\n      # If the array is now empty, remove it entirely\n      REMAINING=$(/usr/libexec/PlistBuddy -c \"Print :NSBonjourServices\" \"$PLIST_PATH\" 2>/dev/null | grep \"^    \" | wc -l | tr -d ' ')\n      if [ \"$REMAINING\" -eq \"0\" ]; then\n        /usr/libexec/PlistBuddy -c \"Delete :NSBonjourServices\" \"$PLIST_PATH\" 2>/dev/null || true\n      fi\n    fi\n\n    # Only delete the description if it matches the dev-launcher default text\n    DESC=$(/usr/libexec/PlistBuddy -c \"Print :NSLocalNetworkUsageDescription\" \"$PLIST_PATH\" 2>/dev/null || echo \"\")\n    if echo \"$DESC\" | grep -q \"Expo Dev Launcher\"; then\n      /usr/libexec/PlistBuddy -c \"Delete :NSLocalNetworkUsageDescription\" \"$PLIST_PATH\" 2>/dev/null || true\n    fi\n  fi\nfi\n";
-		};
-		EA2357371EA6E9902FF687B4 /* [CP] Embed Pods Frameworks */ = {
+		8E19AB00C4C9C98E2EC2BC0E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -351,6 +327,30 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MLX90614Local/Pods-MLX90614Local-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D6F53464DE090C038486E517 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env",
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/MLX90614Local/MLX90614Local.entitlements",
+				"$(SRCROOT)/Pods/Target Support Files/Pods-MLX90614Local/expo-configure-project.sh",
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Pods/Target Support Files/Pods-MLX90614Local/ExpoModulesProvider.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-MLX90614Local/expo-configure-project.sh\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -359,7 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				9FE4C83515FE31B9D3F250D5 /* ExpoModulesProvider.swift in Sources */,
+				F852C89EA8C039FB784641AB /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +368,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7DEB1ACC36660FBCD064D49 /* Pods-MLX90614Local.debug.xcconfig */;
+			baseConfigurationReference = A6E9896EC2F4123E14550DFB /* Pods-MLX90614Local.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -409,7 +409,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00D3BE02E246805652BF74B1 /* Pods-MLX90614Local.release.xcconfig */;
+			baseConfigurationReference = C27AFC38E1C8C7B48D8B5507 /* Pods-MLX90614Local.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

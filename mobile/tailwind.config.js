@@ -5,10 +5,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ink: "#080808",
+        ink: "#171716",
         paper: "#FFFFFF",
-        mist: "#F2F2F2",
-        graphite: "#5C5C5C"
+        canvas: "#F6F6F4",
+        mist: "#EFEFEB",
+        line: "#DFDFD9",
+        graphite: "#666661"
       }
     }
   },

@@ -18,13 +18,15 @@ export type MinuteSummary = {
   objectMin: number;
   objectMax: number;
   objectAvg: number;
+  syncedAtUtc: string | null;
 };
 
 export type LocalStats = {
-  pending: number;
+  pendingMinutes: number;
   total: number;
   latest: TemperatureReading | null;
   latestMinute: MinuteSummary | null;
+  lastSyncedAtUtc: string | null;
 };
 
 export type ChatMessage = {

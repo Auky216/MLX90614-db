@@ -42,6 +42,7 @@ function rowToSummary(row: Record<string, unknown>): MinuteSummary {
     objectMin: Number(row.object_min),
     objectMax: Number(row.object_max),
     objectAvg: Number(row.object_avg),
+    syncedAtUtc: row.synced_at_utc ? String(row.synced_at_utc) : null,
   };
 }
 
@@ -71,7 +72,8 @@ export async function getDatabase(): Promise<SQLite.SQLiteDatabase> {
           object_min REAL NOT NULL,
           object_max REAL NOT NULL,
           object_avg REAL NOT NULL,
-          updated_at_utc TEXT NOT NULL
+          updated_at_utc TEXT NOT NULL,
+          synced_at_utc TEXT
         );
         CREATE TABLE IF NOT EXISTS chat_messages (
           id TEXT PRIMARY KEY NOT NULL,
@@ -80,6 +82,10 @@ export async function getDatabase(): Promise<SQLite.SQLiteDatabase> {
           created_at_utc TEXT NOT NULL
         );
       `);
+      const columns = await database.getAllAsync<{ name: string }>("PRAGMA table_info(minute_summaries)");
+      if (!columns.some((column) => column.name === "synced_at_utc")) {
+        await database.execAsync("ALTER TABLE minute_summaries ADD COLUMN synced_at_utc TEXT");
+      }
       return database;
     });
   }
@@ -131,7 +137,8 @@ export async function saveReading(input: Omit<TemperatureReading, "sourceId" | "
        ON CONFLICT(minute_utc) DO UPDATE SET
          samples = excluded.samples, ambient_min = excluded.ambient_min, ambient_max = excluded.ambient_max,
          ambient_avg = excluded.ambient_avg, object_min = excluded.object_min, object_max = excluded.object_max,
-         object_avg = excluded.object_avg, updated_at_utc = excluded.updated_at_utc`,
+         object_avg = excluded.object_avg, updated_at_utc = excluded.updated_at_utc,
+         synced_at_utc = NULL`,
       minuteUtc,
       aggregate.samples,
       aggregate.ambient_min,
@@ -149,21 +156,31 @@ export async function saveReading(input: Omit<TemperatureReading, "sourceId" | "
 export async function getLocalStats(): Promise<LocalStats> {
   const database = await getDatabase();
   const counts = await database.getFirstAsync<Record<string, unknown>>(
-    "SELECT COUNT(*) AS total, SUM(CASE WHEN synced_at_utc IS NULL THEN 1 ELSE 0 END) AS pending FROM readings",
+    "SELECT COUNT(*) AS total FROM readings",
   );
   const latest = await database.getFirstAsync<Record<string, unknown>>(
     "SELECT source_id, captured_at_utc, ambient, object, sequence, synced_at_utc FROM readings ORDER BY captured_at_utc DESC LIMIT 1",
   );
   const latestMinute = await database.getFirstAsync<Record<string, unknown>>(
     `SELECT minute_utc, samples, ambient_min, ambient_max, ambient_avg,
-            object_min, object_max, object_avg
+            object_min, object_max, object_avg, synced_at_utc
      FROM minute_summaries ORDER BY minute_utc DESC LIMIT 1`,
+  );
+  const currentMinute = minuteKey(new Date().toISOString());
+  const syncStatus = await database.getFirstAsync<Record<string, unknown>>(
+    "SELECT COUNT(*) AS pending_minutes, MAX(synced_at_utc) AS last_synced_at_utc FROM minute_summaries WHERE minute_utc < ?",
+    currentMinute,
+  );
+  const pendingStatus = await database.getFirstAsync<Record<string, unknown>>(
+    "SELECT COUNT(*) AS pending_minutes FROM minute_summaries WHERE minute_utc < ? AND synced_at_utc IS NULL",
+    currentMinute,
   );
   return {
     total: Number(counts?.total ?? 0),
-    pending: Number(counts?.pending ?? 0),
+    pendingMinutes: Number(pendingStatus?.pending_minutes ?? 0),
     latest: latest ? rowToReading(latest) : null,
     latestMinute: latestMinute ? rowToSummary(latestMinute) : null,
+    lastSyncedAtUtc: syncStatus?.last_synced_at_utc ? String(syncStatus.last_synced_at_utc) : null,
   };
 }
 
@@ -181,7 +198,7 @@ export async function getRecentSummaries(limit = 120): Promise<MinuteSummary[]> 
   const database = await getDatabase();
   const rows = await database.getAllAsync<Record<string, unknown>>(
     `SELECT minute_utc, samples, ambient_min, ambient_max, ambient_avg,
-            object_min, object_max, object_avg
+            object_min, object_max, object_avg, synced_at_utc
      FROM minute_summaries ORDER BY minute_utc DESC LIMIT ?`,
     limit,
   );
@@ -196,6 +213,32 @@ export async function getPendingReadings(limit = 500): Promise<TemperatureReadin
     limit,
   );
   return rows.map(rowToReading);
+}
+
+export async function getPendingMinuteSummaries(limit = 500): Promise<MinuteSummary[]> {
+  const database = await getDatabase();
+  const currentMinute = minuteKey(new Date().toISOString());
+  const rows = await database.getAllAsync<Record<string, unknown>>(
+    `SELECT minute_utc, samples, ambient_min, ambient_max, ambient_avg,
+            object_min, object_max, object_avg, synced_at_utc
+     FROM minute_summaries
+     WHERE minute_utc < ? AND synced_at_utc IS NULL
+     ORDER BY minute_utc ASC LIMIT ?`,
+    currentMinute,
+    limit,
+  );
+  return rows.map(rowToSummary);
+}
+
+export async function markMinuteSummariesSynced(minutesUtc: string[]): Promise<void> {
+  if (!minutesUtc.length) return;
+  const database = await getDatabase();
+  const placeholders = minutesUtc.map(() => "?").join(", ");
+  await database.runAsync(
+    `UPDATE minute_summaries SET synced_at_utc = ? WHERE minute_utc IN (${placeholders})`,
+    new Date().toISOString(),
+    ...minutesUtc,
+  );
 }
 
 export async function markReadingsSynced(sourceIds: string[]): Promise<void> {

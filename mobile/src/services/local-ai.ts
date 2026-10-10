@@ -21,7 +21,7 @@ function localFallback(question: string, stats: LocalStats): string {
     latestMinute
       ? `El último minuto tuvo ${latestMinute.samples} muestras: ambiente promedio ${temperature(latestMinute.ambientAvg)} y objeto promedio ${temperature(latestMinute.objectAvg)}.`
       : "Todavía no hay un minuto completo agregado.",
-    `Hay ${stats.pending} lecturas pendientes de subida; los datos permanecen en este iPhone.`,
+    `Hay ${stats.pendingMinutes} minutos pendientes de sincronización; los datos permanecen en este iPhone.`,
   ];
   if (/pendiente|subir|sincron/i.test(question)) return values[2];
   if (/promedio|minuto/i.test(question)) return values[1];
@@ -32,7 +32,8 @@ function contextForAI(stats: LocalStats, summaries: MinuteSummary[], history: Ch
   return JSON.stringify({
     latest_reading: stats.latest,
     latest_minute: stats.latestMinute,
-    pending_readings: stats.pending,
+    pending_minutes: stats.pendingMinutes,
+    last_synced_at_utc: stats.lastSyncedAtUtc,
     recent_minute_summaries: summaries.slice(0, 60),
     conversation: history.slice(-10).map(({ role, content }) => ({ role, content })),
   });

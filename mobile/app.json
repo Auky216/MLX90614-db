@@ -10,7 +10,10 @@
       "bundleIdentifier": "com.antonio.mlx90614local",
       "infoPlist": {
         "NSBluetoothAlwaysUsageDescription": "MLX90614 Local usa Bluetooth para recibir lecturas del sensor ESP32.",
-        "NSLocalNetworkUsageDescription": "MLX90614 Local se conecta al gateway de chat configurado en tu red local.",
+        "NSLocalNetworkUsageDescription": "MLX90614 Local se conecta a la API configurada para sincronizar tus lecturas.",
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        },
         "UIBackgroundModes": [
           "bluetooth-central"
         ]

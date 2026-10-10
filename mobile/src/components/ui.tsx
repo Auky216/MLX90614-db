@@ -4,7 +4,7 @@ import { Pressable, Text, View, type PressableProps } from "react-native";
 import { cn } from "@/lib/cn";
 
 export function Card({ children, className }: PropsWithChildren<{ className?: string }>) {
-  return <View className={cn("rounded-3xl border border-ink bg-paper p-5", className)}>{children}</View>;
+  return <View className={cn("rounded-[26px] border border-line bg-paper p-5 shadow-sm", className)}>{children}</View>;
 }
 
 export function Button({ children, className, disabled, ...props }: PropsWithChildren<PressableProps & { className?: string }>) {
@@ -12,7 +12,7 @@ export function Button({ children, className, disabled, ...props }: PropsWithChi
     <Pressable
       accessibilityRole="button"
       disabled={disabled}
-      className={cn("items-center rounded-full bg-ink px-5 py-3 active:opacity-70", disabled && "opacity-40", className)}
+      className={cn("items-center rounded-full bg-ink px-5 py-3.5 active:opacity-70", disabled && "opacity-40", className)}
       {...props}
     >
       <Text className="font-semibold text-paper">{children}</Text>
@@ -25,7 +25,7 @@ export function OutlineButton({ children, className, disabled, ...props }: Props
     <Pressable
       accessibilityRole="button"
       disabled={disabled}
-      className={cn("items-center rounded-full border border-ink bg-paper px-5 py-3 active:bg-mist", disabled && "opacity-40", className)}
+      className={cn("items-center rounded-full border border-line bg-paper px-5 py-3.5 active:bg-mist", disabled && "opacity-40", className)}
       {...props}
     >
       <Text className="font-semibold text-ink">{children}</Text>
@@ -35,7 +35,7 @@ export function OutlineButton({ children, className, disabled, ...props }: Props
 
 export function Metric({ label, value, detail }: { label: string; value: string; detail?: string }) {
   return (
-    <View className="min-h-32 flex-1 rounded-3xl border border-ink bg-paper p-4">
+    <View className="min-h-32 flex-1 rounded-[22px] border border-line bg-paper p-4">
       <Text className="text-xs font-medium uppercase tracking-wider text-graphite">{label}</Text>
       <Text className="mt-4 text-2xl font-bold text-ink">{value}</Text>
       {detail ? <Text className="mt-2 text-xs text-graphite">{detail}</Text> : null}

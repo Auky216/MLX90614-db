@@ -7,7 +7,7 @@ Aplicación React Native independiente del backend Python. Recibe lecturas por B
 - El ESP32 publica por BLE; Mosquitto no participa en la captura móvil.
 - SQLite es la fuente de datos local del iPhone.
 - La app no contiene claves de DeepSeek ni tokens de servidor en archivos `EXPO_PUBLIC_*`.
-- La subida es manual, por lotes e idempotente mediante `source_id`.
+- La app sincroniza automáticamente resúmenes cerrados por minuto, de forma idempotente.
 
 ## Preparación
 
@@ -44,9 +44,9 @@ La base `mlx90614-mobile.db` se administra mediante `expo-sqlite` y contiene:
 
 ## Sincronización
 
-Configura `EXPO_PUBLIC_SYNC_BASE_URL` con una URL HTTPS. El token no se agrega a `.env`: se ingresa dentro de Ajustes y queda en el llavero de iOS mediante `expo-secure-store`.
+Configura `EXPO_PUBLIC_SYNC_BASE_URL` con la URL de tu API. El token no se agrega a `.env`: se ingresa dentro de Ajustes y queda en el llavero de iOS mediante `expo-secure-store`.
 
-El servidor debe aceptar `POST /mobile/v1/readings/batch`, incluir autenticación `X-MLX-Sync-Token`, recibir un máximo de 500 lecturas y tratar `source_id` como clave idempotente. La app conserva datos pendientes cuando falla la red.
+El servidor recibe `POST /mobile/v1/minutes/batch`, incluye autenticación `X-MLX-Sync-Token` y acepta hasta 500 minutos por lote. La app conserva los minutos pendientes cuando falla la red, los reintenta cada 30 segundos mientras está abierta y muestra la hora del último envío confirmado. El minuto actual nunca se sube hasta cerrarse.
 
 ## Asistente local
 

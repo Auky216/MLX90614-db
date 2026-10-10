@@ -91,7 +91,9 @@ docker compose logs -f mlx90614-dashboard
 
 La API consulta SQLite en modo solo lectura. No acepta SQL arbitrario y usa cálculos ponderados por `samples` para los promedios. Las fechas sin zona horaria se interpretan con `LOCAL_TIMEZONE`, que en la configuración de ejemplo es `America/Lima`.
 
-La app iPhone dispone además de un único `POST /mobile/v1/readings/batch` para subir lotes manuales. Requiere el encabezado `X-MLX-Sync-Token`; configura un valor aleatorio largo en `MOBILE_SYNC_TOKEN` del `.env` del servidor. El endpoint solo escribe en `mobile_temperature_readings`, una tabla distinta de `temperature_minutes`, y `source_id` evita duplicados por reintentos.
+La app iPhone sincroniza automáticamente únicamente los **minutos cerrados** mediante `POST /mobile/v1/minutes/batch`. Requiere el encabezado `X-MLX-Sync-Token`; configura un valor aleatorio largo en `MOBILE_SYNC_TOKEN` del `.env` del servidor. La API guarda cada resumen en `mobile_temperature_minutes`, una tabla independiente de `temperature_minutes` para evitar mezclar o duplicar las mediciones del backend MQTT.
+
+El dashboard permite elegir la fuente de las gráficas: `MQTT · backend` o `iPhone · Bluetooth`. Ambas muestran promedios, mínimos, máximos, muestras y el histórico por minuto. El panel también muestra la hora en que el servidor recibió el último resumen del iPhone.
 
 Levantar todos los servicios:
 

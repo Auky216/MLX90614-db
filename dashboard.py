@@ -37,6 +37,10 @@ FILTERS = {
     "Últimos 7 días": timedelta(days=7),
     "Todo": None,
 }
+HISTORY_SOURCES = {
+    "MQTT · backend": "temperature_minutes",
+    "iPhone · Bluetooth": "mobile_temperature_minutes",
+}
 
 
 @dataclass(frozen=True)
@@ -215,6 +219,7 @@ def empty_history() -> pd.DataFrame:
 def read_history(
     database_path: str,
     window: Optional[timedelta],
+    source_table: str,
     limit: Optional[int] = None,
 ) -> tuple[pd.DataFrame, Optional[str]]:
     """Lee SQLite con conexiones de corta duración y sin modificar datos."""
@@ -222,7 +227,9 @@ def read_history(
     if not path.exists():
         return empty_history(), None
 
-    query = f"SELECT {', '.join(HISTORY_COLUMNS)} FROM temperature_minutes"
+    if source_table not in HISTORY_SOURCES.values():
+        return empty_history(), "Fuente histórica inválida."
+    query = f"SELECT {', '.join(HISTORY_COLUMNS)} FROM {source_table}"
     parameters: list[object] = []
     if window is not None:
         cutoff = datetime.now(timezone.utc) - window
@@ -250,6 +257,26 @@ def read_history(
             return empty_history(), f"No se pudo leer SQLite: {error}"
 
     return empty_history(), "No se pudo leer SQLite temporalmente."
+
+
+def read_mobile_sync_time(database_path: str) -> tuple[Optional[str], Optional[str]]:
+    """Devuelve cuándo el servidor recibió por última vez un resumen del iPhone."""
+    path = Path(database_path)
+    if not path.exists():
+        return None, None
+    try:
+        uri = path.resolve().as_uri() + "?mode=ro"
+        with sqlite3.connect(uri, uri=True, timeout=1) as connection:
+            row = connection.execute(
+                "SELECT MAX(received_at_utc) FROM mobile_temperature_minutes"
+            ).fetchone()
+        return (str(row[0]) if row and row[0] else None), None
+    except sqlite3.OperationalError as error:
+        if "no such table" in str(error).lower():
+            return None, None
+        return None, f"No se pudo leer la sincronización móvil: {error}"
+    except sqlite3.Error as error:
+        return None, f"No se pudo leer la sincronización móvil: {error}"
 
 
 def format_temperature(value: Optional[float]) -> str:
@@ -311,22 +338,28 @@ def render_dashboard(settings: DashboardSettings) -> None:
         if mqtt_error:
             st.caption(mqtt_error)
 
+    source_label = st.selectbox("Fuente de datos", list(HISTORY_SOURCES), key="history_source")
+    source_table = HISTORY_SOURCES[source_label]
     filter_label = st.selectbox("Histórico", list(FILTERS), key="history_window")
-    history, database_error = read_history(settings.database_path, FILTERS[filter_label])
-    latest_history, latest_error = read_history(settings.database_path, None, limit=1)
+    history, database_error = read_history(settings.database_path, FILTERS[filter_label], source_table)
+    latest_history, latest_error = read_history(settings.database_path, None, source_table, limit=1)
+    last_mobile_sync, mobile_sync_error = read_mobile_sync_time(settings.database_path)
     if database_error:
         st.warning(database_error)
     if latest_error:
         st.warning(latest_error)
+    if mobile_sync_error:
+        st.warning(mobile_sync_error)
 
     latest_minute = latest_history.iloc[0] if not latest_history.empty else None
-    row_one = st.columns(3)
+    row_one = st.columns(4)
     row_one[0].metric("Temperatura ambiente", format_temperature(reading.ambient if reading else None))
     row_one[1].metric("Temperatura objeto", format_temperature(reading.object_temperature if reading else None))
     row_one[2].metric(
         "Última lectura",
         reading.received_at.strftime("%Y-%m-%d %H:%M:%S UTC") if reading else "Sin lecturas",
     )
+    row_one[3].metric("Última sincronización iPhone", last_mobile_sync or "Aún no hay envío")
 
     row_two = st.columns(3)
     row_two[0].metric(

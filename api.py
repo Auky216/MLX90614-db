@@ -11,6 +11,7 @@ from mobile_ingestion import (
     MobileIngestionConfigurationError,
     MobileIngestionService,
     MobileIngestionUnavailableError,
+    MobileMinute,
     MobileReading,
     load_mobile_sync_token,
 )
@@ -30,7 +31,7 @@ app = FastAPI(
     openapi_tags=[
         {"name": "system", "description": "Estado del servicio."},
         {"name": "temperature", "description": "Consultas históricas y agregadas de temperatura."},
-        {"name": "mobile", "description": "Subida manual autenticada desde la aplicación móvil."},
+        {"name": "mobile", "description": "Sincronización autenticada de la aplicación móvil."},
     ],
 )
 
@@ -60,6 +61,38 @@ class MobileReadingPayload(BaseModel):
 class MobileBatchPayload(BaseModel):
     device_id: str = Field(min_length=8, max_length=128)
     readings: list[MobileReadingPayload] = Field(min_length=1, max_length=500)
+
+
+class MobileMinutePayload(BaseModel):
+    minute_utc: datetime
+    samples: int = Field(ge=1, le=10000)
+    ambient_min: float
+    ambient_max: float
+    ambient_avg: float
+    object_min: float
+    object_max: float
+    object_avg: float
+
+    @field_validator("minute_utc")
+    @classmethod
+    def minute_must_be_utc(cls, value: datetime) -> datetime:
+        if value.tzinfo is None:
+            raise ValueError("minute_utc debe incluir zona horaria")
+        return value.astimezone(timezone.utc).replace(second=0, microsecond=0)
+
+    @field_validator(
+        "ambient_min", "ambient_max", "ambient_avg", "object_min", "object_max", "object_avg"
+    )
+    @classmethod
+    def minute_temperatures_must_be_finite(cls, value: float) -> float:
+        if not -100.0 <= value <= 1000.0:
+            raise ValueError("Temperatura fuera de rango")
+        return value
+
+
+class MobileMinuteBatchPayload(BaseModel):
+    device_id: str = Field(min_length=8, max_length=128)
+    minutes: list[MobileMinutePayload] = Field(min_length=1, max_length=500)
 
 
 def get_service() -> TemperatureService:
@@ -168,4 +201,43 @@ def upload_mobile_readings(
     except MobileIngestionUnavailableError as error:
         raise HTTPException(status_code=503, detail="La base está ocupada; reintenta la subida") from error
     return {"accepted_source_ids": accepted, "count": len(accepted)}
+
+
+@app.post(
+    "/mobile/v1/minutes/batch",
+    tags=["mobile"],
+    summary="Subir automáticamente resúmenes móviles por minuto",
+    status_code=status.HTTP_200_OK,
+)
+def upload_mobile_minutes(
+    payload: MobileMinuteBatchPayload,
+    x_mlx_sync_token: Annotated[str | None, Header()] = None,
+) -> dict[str, object]:
+    """Acepta únicamente promedios por minuto; no modifica temperature_minutes de MQTT."""
+    verify_mobile_sync_token(x_mlx_sync_token)
+    for minute in payload.minutes:
+        if minute.ambient_min > minute.ambient_max or minute.object_min > minute.object_max:
+            raise HTTPException(status_code=422, detail="Los mínimos no pueden ser mayores que los máximos")
+        if not minute.ambient_min <= minute.ambient_avg <= minute.ambient_max:
+            raise HTTPException(status_code=422, detail="El promedio ambiente debe estar dentro de su rango")
+        if not minute.object_min <= minute.object_avg <= minute.object_max:
+            raise HTTPException(status_code=422, detail="El promedio objeto debe estar dentro de su rango")
+    minutes = [
+        MobileMinute(
+            minute_utc=minute.minute_utc.strftime("%Y-%m-%d %H:%M"),
+            samples=minute.samples,
+            ambient_min=minute.ambient_min,
+            ambient_max=minute.ambient_max,
+            ambient_avg=minute.ambient_avg,
+            object_min=minute.object_min,
+            object_max=minute.object_max,
+            object_avg=minute.object_avg,
+        )
+        for minute in payload.minutes
+    ]
+    try:
+        accepted = MobileIngestionService.from_environment().store_minute_batch(payload.device_id, minutes)
+    except MobileIngestionUnavailableError as error:
+        raise HTTPException(status_code=503, detail="La base está ocupada; reintenta la subida") from error
+    return {"accepted_minute_utc": accepted, "count": len(accepted)}
 
