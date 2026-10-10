@@ -9,7 +9,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>MLX90614 Local</string>
+	<string>ThermaSense</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -51,7 +51,7 @@
 		<true/>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>MLX90614 Local usa Bluetooth para recibir lecturas del sensor ESP32.</string>
+	<string>ThermaSense usa Bluetooth para recibir lecturas del sensor ESP32.</string>
 	<key>NSBonjourServices</key>
 	<array>
 		<string>_expo._tcp</string>
@@ -59,7 +59,7 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to access your Face ID biometric data.</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>MLX90614 Local se conecta a la API configurada para sincronizar tus lecturas.</string>
+	<string>ThermaSense se conecta a la API configurada para sincronizar tus lecturas.</string>
 	<key>RCTMetroPort</key>
 	<string>$(RCT_METRO_PORT)</string>
 	<key>RCTNewArchEnabled</key>

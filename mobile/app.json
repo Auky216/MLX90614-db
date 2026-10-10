@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "MLX90614 Local",
+    "name": "ThermaSense",
     "slug": "mlx90614-local",
+    "icon": "./assets/thermasense-icon.png",
     "version": "0.1.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -9,8 +10,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.antonio.mlx90614local",
       "infoPlist": {
-        "NSBluetoothAlwaysUsageDescription": "MLX90614 Local usa Bluetooth para recibir lecturas del sensor ESP32.",
-        "NSLocalNetworkUsageDescription": "MLX90614 Local se conecta a la API configurada para sincronizar tus lecturas.",
+        "NSBluetoothAlwaysUsageDescription": "ThermaSense usa Bluetooth para recibir lecturas del sensor ESP32.",
+        "NSLocalNetworkUsageDescription": "ThermaSense se conecta a la API configurada para sincronizar tus lecturas.",
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true
         },
@@ -27,7 +28,7 @@
           "modes": [
             "central"
           ],
-          "bluetoothAlwaysPermission": "MLX90614 Local usa Bluetooth para recibir lecturas del sensor ESP32."
+          "bluetoothAlwaysPermission": "ThermaSense usa Bluetooth para recibir lecturas del sensor ESP32."
         }
       ],
       "expo-secure-store",
