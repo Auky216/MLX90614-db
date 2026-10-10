@@ -1,0 +1,35 @@
+{
+  "name": "mlx90614-mobile",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo/AppEntry",
+  "scripts": {
+    "start": "expo start --dev-client",
+    "ios": "expo run:ios --device",
+    "prebuild": "expo prebuild",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sfourdrinier/react-native-ble-plx": "^3.9.3",
+    "@rn-primitives/slot": "^1.2.3",
+    "base-64": "^1.0.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "expo": "~57.0.27",
+    "expo-dev-client": "~57.0.19",
+    "expo-secure-store": "~57.0.4",
+    "expo-sqlite": "~57.0.4",
+    "nativewind": "^4.1.23",
+    "react": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-svg": "15.15.4",
+    "tailwind-merge": "^3.3.0",
+    "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "@types/base-64": "^1.0.2",
+    "@types/react": "~19.2.2",
+    "babel-preset-expo": "~57.0.12",
+    "typescript": "~6.0.3"
+  }
+}

@@ -91,6 +91,8 @@ docker compose logs -f mlx90614-dashboard
 
 La API consulta SQLite en modo solo lectura. No acepta SQL arbitrario y usa cálculos ponderados por `samples` para los promedios. Las fechas sin zona horaria se interpretan con `LOCAL_TIMEZONE`, que en la configuración de ejemplo es `America/Lima`.
 
+La app iPhone dispone además de un único `POST /mobile/v1/readings/batch` para subir lotes manuales. Requiere el encabezado `X-MLX-Sync-Token`; configura un valor aleatorio largo en `MOBILE_SYNC_TOKEN` del `.env` del servidor. El endpoint solo escribe en `mobile_temperature_readings`, una tabla distinta de `temperature_minutes`, y `source_id` evita duplicados por reintentos.
+
 Levantar todos los servicios:
 
 ```bash

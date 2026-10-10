@@ -1,0 +1,7 @@
+{
+  "platforms": ["apple"],
+  "apple": {
+    "podspecPath": "mlx-local-ai.podspec",
+    "modules": ["MLXLocalAI"]
+  }
+}

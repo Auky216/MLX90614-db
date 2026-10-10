@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "MLX90614 Local",
+    "slug": "mlx90614-local",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.antonio.mlx90614local",
+      "infoPlist": {
+        "NSBluetoothAlwaysUsageDescription": "MLX90614 Local usa Bluetooth para recibir lecturas del sensor ESP32.",
+        "NSLocalNetworkUsageDescription": "MLX90614 Local se conecta al gateway de chat configurado en tu red local.",
+        "UIBackgroundModes": [
+          "bluetooth-central"
+        ]
+      }
+    },
+    "plugins": [
+      [
+        "@sfourdrinier/react-native-ble-plx",
+        {
+          "isBackgroundEnabled": true,
+          "modes": [
+            "central"
+          ],
+          "bluetoothAlwaysPermission": "MLX90614 Local usa Bluetooth para recibir lecturas del sensor ESP32."
+        }
+      ],
+      "expo-secure-store",
+      "./plugins/with-user-script-sandboxing"
+    ],
+    "android": {
+      "package": "com.antonio.mlx90614local"
+    }
+  }
+}
