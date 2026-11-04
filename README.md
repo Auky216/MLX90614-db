@@ -136,7 +136,7 @@ Swagger está disponible en [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/d
 Para acceder temporalmente desde tu Mac sin exponer la API públicamente:
 
 ```bash
-ssh -L 8000:127.0.0.1:8000 programador@13.140.187.142
+ssh -L 8000:127.0.0.1:8000 programador@<IP_DEL_SERVIDOR>
 ```
 
 Luego abre [http://localhost:8000/docs](http://localhost:8000/docs).
@@ -164,7 +164,7 @@ Abre [http://localhost:8502](http://localhost:8502). Las conversaciones se guard
 Desde tu Mac, crea un túnel SSH hacia el puerto local del servidor:
 
 ```bash
-ssh -L 8501:127.0.0.1:8501 programador@13.140.187.142
+ssh -L 8501:127.0.0.1:8501 programador@<IP_DEL_SERVIDOR>
 ```
 
 Después abre [http://localhost:8501](http://localhost:8501).
